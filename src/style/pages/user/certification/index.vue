@@ -10,19 +10,14 @@
     <!-- 实名认证结构的提示部分 -->
     <div class="tip" style="color: #7f7f7f">
       <p>
-        <el-icon><InfoFilled /></el-icon
-        >完成实名认证后才能添加就诊人，正常进行挂号，为了不影响后续步骤，建议提前实名认证。
+        <el-icon>
+          <InfoFilled />
+        </el-icon>完成实名认证后才能添加就诊人，正常进行挂号，为了不影响后续步骤，建议提前实名认证。
       </p>
     </div>
     <!-- 卡片身体的底部:认证成功的结构、认证未成功的结构 -->
-    <el-descriptions
-      v-if="userInfo.authStatus == 1"
-      size="small"
-      class="margin-top"
-      :column="1"
-      border
-      style="margin: 20px auto"
-    >
+    <el-descriptions v-if="userInfo.authStatus == 1" size="small" class="margin-top" :column="1" border
+      style="margin: 20px auto">
       <el-descriptions-item label-align="center" :width="20">
         <template #label>
           <div class="cell-item">用户姓名</div>
@@ -43,29 +38,14 @@
       </el-descriptions-item>
     </el-descriptions>
     <!-- 用户未验证的结构 -->
-    <el-form
-      v-if="userInfo.authStatus == 0"
-      style="width: 60%; margin: 20px auto"
-      label-width="80"
-      :model="params"
-      :rules="rules"
-      ref="form"
-    >
+    <el-form v-if="userInfo.authStatus == 0" style="width: 60%; margin: 20px auto" label-width="80" :model="params"
+      :rules="rules" ref="form">
       <el-form-item label="用户姓名" prop="name">
         <el-input placeholder="请输入用户姓名" v-model="params.name"></el-input>
       </el-form-item>
       <el-form-item label="证件类型" prop="certificatesType">
-        <el-select
-          style="width: 100%"
-          placeholder="请选择证件类型"
-          v-model="params.certificatesType"
-        >
-          <el-option
-            :label="item.name"
-            :value="item.value"
-            v-for="(item, index) in arrType"
-            :key="index"
-          ></el-option>
+        <el-select style="width: 100%" placeholder="请选择证件类型" v-model="params.certificatesType">
+          <el-option :label="item.name" :value="item.value" v-for="(item, index) in arrType" :key="index"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="证件号码" prop="certificatesNo">
@@ -76,31 +56,15 @@
              limit:照片墙约束图片个数
              on-exceed:超出约束数量的钩子
         -->
-        <el-upload
-          ref="upload"
-          list-type="picture-card"
-          :on-remove="handleRemove"
-          :on-preview="handlePictureCardPreview"
-          :on-success="successhandler"
-          :on-exceed="exceedhandler"
-          :limit="1"
-          action="/api/oss/file/fileUpload?fileHost=userAuah"
-        >
-          <img
-            style="width: 100%; height: 100%"
-            src="../../../assets/images/auth_example.png"
-            alt=""
-          />
+        <el-upload ref="upload" list-type="picture-card" :on-remove="handleRemove" :on-preview="handlePictureCardPreview"
+          :on-success="successhandler" :on-exceed="exceedhandler" :limit="1"
+          action="/api/oss/file/fileUpload?fileHost=userAuah">
+          <img style="width: 100%; height: 100%" src="../../../assets/images/auth_example.png" alt="" />
         </el-upload>
 
         <el-dialog v-model="dialogVisible">
-          <img
-            w-full
-            v-if="params.certificatesUrl"
-            style="width: 100%; height: 100%"
-            :src="params.certificatesUrl"
-            alt="Preview Image"
-          />
+          <img w-full v-if="params.certificatesUrl" style="width: 100%; height: 100%" :src="params.certificatesUrl"
+            alt="Preview Image" />
         </el-dialog>
       </el-form-item>
       <el-form-item>
@@ -248,7 +212,7 @@ const validatorType = (_rule: any, value: any, callBack: any) => {
 };
 
 //证件号码的校验方法
-const validatorNo = (_rule: any, value: any, callBack:any) => {
+const validatorNo = (_rule: any, value: any, callBack: any) => {
   let sfz = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
   let hkb = /^\d{9}$/;
   if (sfz.test(value) || hkb.test(value)) {
