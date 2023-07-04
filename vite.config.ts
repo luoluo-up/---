@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://syt.atguigu.cn',
+        target: 'http://syt.atguigu.cn',
         changeOrigin: true,
       },
     }
